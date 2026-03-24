@@ -1,5 +1,6 @@
 // ============================================
-// ATIGA COFFEE - MAIN JAVASCRIPT
+// ATIGA COFFEE - UPDATED JAVASCRIPT
+// DYNAMIC SCROLL ANIMATIONS
 // ============================================
 
 // MOBILE MENU TOGGLE
@@ -18,7 +19,7 @@ if (hamburger) {
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
         navMenu.classList.remove('active');
-        hamburger.classList.remove('active');
+        if (hamburger) hamburger.classList.remove('active');
     });
 });
 
@@ -27,8 +28,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
+        if (targetId === '#') return;
         
+        const targetElement = document.querySelector(targetId);
         if (targetElement) {
             targetElement.scrollIntoView({
                 behavior: 'smooth',
@@ -41,7 +43,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Update active nav link on scroll
 window.addEventListener('scroll', () => {
     let current = '';
-    const sections = document.querySelectorAll('section');
+    const sections = document.querySelectorAll('section[id]');
     
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
@@ -53,10 +55,66 @@ window.addEventListener('scroll', () => {
 
     navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href').slice(1) === current) {
+        const linkHref = link.getAttribute('href').slice(1);
+        if (linkHref === current) {
             link.classList.add('active');
         }
     });
+});
+
+// ============================================
+// DYNAMIC SCROLL ANIMATIONS (FADE IN/OUT)
+// ============================================
+
+const observerOptions = {
+    threshold: [0, 0.1, 0.5, 1],
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            // Section masuk viewport - FADE IN
+            entry.target.classList.add('fade-in');
+            entry.target.classList.remove('fade-out');
+        } else {
+            // Section keluar viewport - FADE OUT
+            entry.target.classList.add('fade-out');
+            entry.target.classList.remove('fade-in');
+        }
+    });
+}, observerOptions);
+
+// Apply observer ke semua sections kecuali hero
+const sections = document.querySelectorAll('section:not(#home)');
+sections.forEach(section => {
+    section.classList.add('fade-out'); // Initial state
+    scrollObserver.observe(section);
+});
+
+// ============================================
+// INDIVIDUAL ELEMENT ANIMATIONS (OPTIONAL)
+// ============================================
+
+const elementObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('element-fade-in');
+            entry.target.classList.remove('element-fade-out');
+        } else {
+            entry.target.classList.add('element-fade-out');
+            entry.target.classList.remove('element-fade-in');
+        }
+    });
+}, {
+    threshold: 0.2,
+    rootMargin: '0px 0px -50px 0px'
+});
+
+// Apply to major content elements
+document.querySelectorAll('.achievement-content, .section-title, .feature-card, .audience-card, .contact-wrapper').forEach(element => {
+    element.classList.add('element-fade-out');
+    elementObserver.observe(element);
 });
 
 // ============================================
@@ -64,111 +122,76 @@ window.addEventListener('scroll', () => {
 // ============================================
 
 const contactForm = document.getElementById('contactForm');
-const nameInput = document.getElementById('name');
-const emailInput = document.getElementById('email');
-const messageInput = document.getElementById('message');
+if (contactForm) {
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
 
-// Validation functions
-function validateEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-function showError(input, errorElementId, message) {
-    const errorElement = document.getElementById(errorElementId);
-    input.style.borderColor = '#c73e1d';
-    errorElement.textContent = message;
-    errorElement.classList.add('show');
-}
-
-function clearError(input, errorElementId) {
-    const errorElement = document.getElementById(errorElementId);
-    input.style.borderColor = '#C9B5A0';
-    errorElement.textContent = '';
-    errorElement.classList.remove('show');
-}
-
-// Form submission
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    let isValid = true;
-
-    // Validate name
-    if (nameInput.value.trim().length < 2) {
-        showError(nameInput, 'nameError', 'Nama harus minimal 2 karakter');
-        isValid = false;
-    } else {
-        clearError(nameInput, 'nameError');
+    // Validation functions
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     }
 
-    // Validate email
-    if (!validateEmail(emailInput.value.trim())) {
-        showError(emailInput, 'emailError', 'Email tidak valid');
-        isValid = false;
-    } else {
-        clearError(emailInput, 'emailError');
+    function showError(input, errorElementId, message) {
+        const errorElement = document.getElementById(errorElementId);
+        input.style.borderColor = '#c73e1d';
+        errorElement.textContent = message;
+        errorElement.classList.add('show');
     }
 
-    // Validate message
-    if (messageInput.value.trim().length < 10) {
-        showError(messageInput, 'messageError', 'Pesan harus minimal 10 karakter');
-        isValid = false;
-    } else {
-        clearError(messageInput, 'messageError');
+    function clearError(input, errorElementId) {
+        const errorElement = document.getElementById(errorElementId);
+        input.style.borderColor = '#EBDBC1';
+        errorElement.textContent = '';
+        errorElement.classList.remove('show');
     }
 
-    // If all valid, show success message
-    if (isValid) {
-        alert('Terima kasih! Pesan Anda telah dikirim. Kami akan menghubungi Anda segera.');
-        contactForm.reset();
-    }
-});
+    // Form submission
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-// Clear error on input focus
-nameInput.addEventListener('focus', () => clearError(nameInput, 'nameError'));
-emailInput.addEventListener('focus', () => clearError(emailInput, 'emailError'));
-messageInput.addEventListener('focus', () => clearError(messageInput, 'messageError'));
+        let isValid = true;
 
-// ============================================
-// INTERSECTION OBSERVER FOR ANIMATIONS
-// ============================================
+        // Validate name
+        if (nameInput.value.trim().length < 2) {
+            showError(nameInput, 'nameError', 'Nama harus minimal 2 karakter');
+            isValid = false;
+        } else {
+            clearError(nameInput, 'nameError');
+        }
 
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
+        // Validate email
+        if (!validateEmail(emailInput.value.trim())) {
+            showError(emailInput, 'emailError', 'Email tidak valid');
+            isValid = false;
+        } else {
+            clearError(emailInput, 'emailError');
+        }
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
-            observer.unobserve(entry.target);
+        // Validate message
+        if (messageInput.value.trim().length < 10) {
+            showError(messageInput, 'messageError', 'Pesan harus minimal 10 karakter');
+            isValid = false;
+        } else {
+            clearError(messageInput, 'messageError');
+        }
+
+        // If all valid, show success message
+        if (isValid) {
+            alert('Terima kasih! Pesan Anda telah dikirim. Kami akan menghubungi Anda segera.');
+            contactForm.reset();
         }
     });
-}, observerOptions);
 
-// Observe all section and card elements
-document.querySelectorAll('.section-title, .feature-card, .audience-card, .story-content, .flavor-content').forEach(element => {
-    element.style.opacity = '0';
-    observer.observe(element);
-});
-
-// ============================================
-// SCROLL-TO-TOP BUTTON (Optional Enhancement)
-// ============================================
-
-window.addEventListener('scroll', () => {
-    const scrollButton = document.getElementById('scrollToTop');
-    if (window.pageYOffset > 300 && scrollButton) {
-        scrollButton.style.display = 'block';
-    } else if (scrollButton) {
-        scrollButton.style.display = 'none';
-    }
-});
+    // Clear error on input focus
+    nameInput.addEventListener('focus', () => clearError(nameInput, 'nameError'));
+    emailInput.addEventListener('focus', () => clearError(emailInput, 'emailError'));
+    messageInput.addEventListener('focus', () => clearError(messageInput, 'messageError'));
+}
 
 // ============================================
-// LAZY LOADING IMAGES (Optional)
+// LAZY LOADING IMAGES (OPTIONAL)
 // ============================================
 
 if ('IntersectionObserver' in window) {
