@@ -1,5 +1,6 @@
 /* ============================================
-   RESPONSIVE DESIGN - BOLD & VISUAL-HEAVY
+   RESPONSIVE DESIGN - SIMPLIFIED & FIXED
+   Based on proven principles from successful CSS
    ============================================ */
 
 /* TABLET (769px - 1024px) */
@@ -127,8 +128,6 @@
     }
 
     .hero {
-        margin-top: -55px;
-        padding-top: 55px;
         height: 70vh;
     }
 
@@ -231,9 +230,12 @@
         gap: 3rem;
     }
 
-    .contact-form,
-    .contact-info-section {
+    .contact-form {
         padding: 2rem;
+    }
+
+    .contact-info {
+        padding: 0;
     }
 
     .contact-form-title,
@@ -268,8 +270,6 @@
     }
 
     .hero {
-        margin-top: -50px;
-        padding-top: 50px;
         height: 60vh;
         min-height: 350px;
     }
@@ -397,9 +397,12 @@
         gap: 2rem;
     }
 
-    .contact-form,
-    .contact-info {
+    .contact-form {
         padding: 1.5rem;
+    }
+
+    .contact-info {
+        padding: 0;
     }
 
     .contact-form-title,
@@ -472,36 +475,33 @@
 
 /* ============================================
    ULTRA-TALL DISPLAYS (1080x2400 - REALME)
+   SIMPLIFIED APPROACH - Only adjust font sizes
+   and spacing, trust the container
    ============================================ */
 
 @media (max-width: 540px) and (min-height: 1200px) {
+    
+    /* Container padding - responsive, not hardcoded */
     .container {
-        padding: 0 12px;
-        width: 100%;
-        max-width: 100%;
-    }
-
-    section {
-        width: 100%;
-        overflow-x: hidden;
-    }
-
-    .hero {
-        height: 85vh;
-        min-height: 600px;
-        width: 100%;
-    }
-
-    .hero-overlay {
-        padding-top: 50px;
-    }
-
-    .hero-text {
         padding: 0 1rem;
     }
 
+    /* Hero section */
+    .hero {
+        height: 85vh;
+        min-height: 500px;
+    }
+
+    .hero-overlay {
+        padding-top: 40px;
+    }
+
+    .hero-text {
+        padding: 0 1.5rem;
+    }
+
     .hero-title {
-        font-size: 1.9rem;
+        font-size: 1.85rem;
         letter-spacing: 1px;
         margin-bottom: 0.8rem;
     }
@@ -514,209 +514,189 @@
     .hero-description {
         font-size: 0.8rem;
         margin-bottom: 1.2rem;
-        max-width: 95%;
+        line-height: 1.6;
     }
 
     .cta-button {
-        padding: 0.9rem 2rem;
-        font-size: 0.85rem;
-        letter-spacing: 0.8px;
+        padding: 0.85rem 1.8rem;
+        font-size: 0.8rem;
+        letter-spacing: 0.6px;
     }
 
-    /* Achievement */
+    /* Achievement section */
     .achievement {
         padding: 3rem 0;
-        width: 100%;
     }
 
     .achievement-content {
-        padding: 0 1rem;
-        max-width: 100%;
+        max-width: 90%;
     }
 
     .achievement-title {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         margin-bottom: 0.8rem;
     }
 
     .achievement-text {
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         margin-bottom: 1rem;
-        max-width: 100%;
+        line-height: 1.8;
     }
 
     .achievement-highlight {
-        font-size: 0.9rem;
-        padding-left: 1.2rem;
-        border-left: 4px solid var(--gold-accent);
+        font-size: 0.85rem;
+        padding-left: 1rem;
+        border-left: 3px solid var(--gold-accent);
         margin-top: 1rem;
     }
 
     .achievement-icon svg {
-        width: 65px;
-        height: 65px;
+        width: 60px;
+        height: 60px;
     }
 
-    /* Sections */
+    /* All sections */
     .story,
     .flavor,
     .audience,
     .features,
     .contact {
         padding: 3rem 0;
-        width: 100%;
-        overflow-x: hidden;
     }
 
     .section-title {
-        font-size: 1.6rem;
+        font-size: 1.55rem;
         margin-bottom: 0.8rem;
-        padding: 0 1rem;
+        line-height: 1.3;
     }
 
     .section-subtitle {
         font-size: 0.9rem;
         margin-bottom: 1.2rem;
-        padding: 0 1rem;
     }
 
-    .story-text {
-        font-size: 0.85rem;
-        margin-bottom: 1rem;
-        padding: 0 1rem;
-    }
-
+    /* Story & Flavor grids */
     .story-grid,
     .flavor-grid {
-        gap: 1.5rem;
-        padding: 0 1rem;
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     .story-image,
     .flavor-image {
-        margin-bottom: 1.2rem;
-        max-width: 100%;
         order: 1;
-    }
-
-    .story-image img,
-    .flavor-image img {
-        width: 100%;
-        max-width: 100%;
-        border-radius: 12px;
+        margin-bottom: 1rem;
     }
 
     .story-content,
     .flavor-content {
         order: 2;
-        padding: 0;
     }
 
-    /* Features & Audience */
+    .story-text {
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+        line-height: 1.7;
+    }
+
+    /* Features & Audience grids - single column */
     .features-grid,
     .audience-grid {
-        gap: 1.2rem;
-        margin-top: 2rem;
-        padding: 0 1rem;
         grid-template-columns: 1fr;
+        gap: 1.2rem;
     }
 
     .feature-card,
     .audience-card {
-        padding: 1.3rem;
-        max-width: 100%;
+        padding: 1.2rem;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     }
 
     .feature-icon svg,
     .audience-icon svg {
-        width: 55px;
-        height: 55px;
-        margin-bottom: 1rem;
+        width: 50px;
+        height: 50px;
+        margin-bottom: 0.8rem;
     }
 
     .feature-title {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         margin-bottom: 0.6rem;
     }
 
     .feature-text {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         line-height: 1.6;
     }
 
     .audience-title {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         margin-bottom: 0.8rem;
     }
 
     .audience-text {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         line-height: 1.6;
     }
 
-    /* Flavor */
+    /* Flavor profile */
     .flavor-profile {
         grid-template-columns: 1fr;
         gap: 1rem;
-        margin-top: 1.5rem;
+        margin-top: 1.2rem;
     }
 
     .flavor-item {
-        padding: 1.2rem;
-        max-width: 100%;
+        padding: 1rem;
+        border-left: 3px solid var(--gold-accent);
     }
 
     .flavor-label {
-        font-size: 1rem;
-        margin-bottom: 0.6rem;
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
     }
 
     .flavor-description {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+        line-height: 1.6;
     }
 
-    /* Contact */
+    /* Contact section */
     .contact-wrapper {
-        gap: 2rem;
-        padding: 0 1rem;
         grid-template-columns: 1fr;
-    }
-
-    .contact-form,
-    .contact-info {
-        padding: 1.3rem;
-        max-width: 100%;
-        border-radius: 12px;
+        gap: 2rem;
     }
 
     .contact-form {
-        background-color: var(--cream);
+        padding: 1.2rem;
+        border-radius: 12px;
+    }
+
+    .contact-info {
+        padding: 0;
     }
 
     .contact-form-title,
     .contact-info-title {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         margin-bottom: 1rem;
-        color: var(--primary-brown);
     }
 
     .form {
-        gap: 1.2rem;
+        gap: 1rem;
     }
 
     .form-group input,
     .form-group textarea {
-        padding: 0.85rem;
-        font-size: 0.9rem;
-        max-width: 100%;
+        padding: 0.8rem;
+        font-size: 0.85rem;
         border-radius: 8px;
     }
 
     .info-item {
-        padding-left: 1.2rem;
-        border-left: 4px solid var(--gold-accent);
+        padding-left: 1rem;
+        border-left: 3px solid var(--gold-accent);
+        margin-bottom: 1.2rem;
     }
 
     .info-label {
@@ -725,7 +705,7 @@
     }
 
     .info-value {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         line-height: 1.6;
     }
 
@@ -735,20 +715,18 @@
     }
 
     .social-icon {
-        width: 38px;
-        height: 38px;
-        font-size: 0.9rem;
+        width: 36px;
+        height: 36px;
+        font-size: 0.85rem;
     }
 
     /* Footer */
     .footer {
         padding: 2.5rem 0;
-        width: 100%;
     }
 
     .footer-content p {
-        font-size: 0.85rem;
-        margin: 0.4rem 0;
-        padding: 0 1rem;
+        font-size: 0.8rem;
+        margin: 0.3rem 0;
     }
 }
