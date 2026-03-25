@@ -116,7 +116,7 @@ a:hover {
 
 .logo-subtext {
     font-family: var(--font-sans);
-    font-size: 0.7rem;
+    font-size: 0.55rem;
     color: var(--primary-brown);
     letter-spacing: 0.8px;
     margin-top: 2px;
@@ -180,14 +180,10 @@ a:hover {
 }
 
 /* ============================================
-   HERO SECTION (FULL COVERAGE)
-   ============================================ */
-
-/* ============================================
    HERO SECTION (FULL VIEWPORT HEIGHT)
    ============================================ */
 
-   .hero {
+.hero {
     margin-top: 0;
     height: 100vh;
     display: flex;
@@ -714,11 +710,12 @@ a:hover {
 }
 
 /* ============================================
-   ANIMATIONS
+   ANIMATIONS - SCROLL FADE IN/OUT (FASTER)
    ============================================ */
 
-   section {
-    transition: opacity 0.6s ease-in-out;
+/* SECTION FADE IN/OUT */
+section {
+    transition: opacity 0.5s ease-in-out;
 }
 
 section.fade-in {
@@ -745,7 +742,7 @@ section.fade-out {
 }
 
 .element-fade-out {
-    opacity: 0.5;
+    opacity: 0.4;
 }
 
 /* INITIAL LOAD ANIMATIONS */
